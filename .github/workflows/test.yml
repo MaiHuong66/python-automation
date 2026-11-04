@@ -26,6 +26,8 @@ jobs:
         run: pytest
         env:
           HEADLESS: "true"
+          LOGIN_USER: ${{ secrets.LOGIN_USER }}
+          LOGIN_PASS: ${{ secrets.LOGIN_PASS }}
 
       - name: Lưu báo cáo
         if: always()

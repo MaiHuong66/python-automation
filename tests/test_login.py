@@ -1,11 +1,17 @@
 from pages.login_page import LoginPage
 
-def test_login_success(driver):
-    login_page = LoginPage(driver)
-    login_page.open()
-    login_page.login("tomsmith", "SuperSecretPassword!")
-    msg = login_page.get_message()
-    assert "You logged into a secure area!" in msg
+# def test_login_success(driver):
+#     login_page = LoginPage(driver)
+#     login_page.open()
+#     login_page.login("tomsmith", "SuperSecretPassword!")
+#     msg = login_page.get_message()
+#     assert "You logged into a secure area!" in msg
+def test_login_success(driver, valid_user):
+    username, password = valid_user
+    page = LoginPage(driver)
+    page.open()
+    page.login(username, password)
+    assert "You logged into a secure area" in page.get_message()
 
 def test_login_password_failure(driver):
     login_page = LoginPage(driver)

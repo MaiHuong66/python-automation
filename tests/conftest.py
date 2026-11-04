@@ -19,7 +19,13 @@ def driver():
     d.implicitly_wait(5)
     yield d
     d.quit()
-
+@pytest.fixture(scope="session")
+def valid_user():
+    user = os.getenv("LOGIN_USER")
+    pwd = os.getenv("LOGIN_PASS")
+    if not user or not pwd:
+        pytest.fail("Thiếu biến môi trường LOGIN_USER / LOGIN_PASS")
+    return user, pwd
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     outcome = yield
