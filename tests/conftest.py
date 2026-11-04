@@ -3,15 +3,22 @@ import pytest
 from selenium import webdriver
 from pytest_html import extras
 
-
 @pytest.fixture
 def driver():
-    d = webdriver.Chrome()
-    d.maximize_window()
+    options = webdriver.ChromeOptions()
+
+    if os.getenv("HEADLESS", "false").lower() == "true":
+        options.add_argument("--headless=new")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--window-size=1920,1080")
+
+    d = webdriver.Chrome(options=options)
+    if os.getenv("HEADLESS", "false").lower() != "true":
+        d.maximize_window()
     d.implicitly_wait(5)
     yield d
     d.quit()
-
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):

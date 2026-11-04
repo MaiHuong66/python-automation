@@ -36,7 +36,7 @@ def test_tick_first_checkbox(driver):
     driver.get("https://the-internet.herokuapp.com/checkboxes")
     checkboxes = driver.find_elements(By.CSS_SELECTOR, "input[type='checkbox']")
     first = checkboxes[0]
-    assert first.is_selected()    
+    assert not first.is_selected()    
     first.click()
     assert first.is_selected()       
 
