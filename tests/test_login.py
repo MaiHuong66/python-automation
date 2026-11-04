@@ -33,5 +33,5 @@ def test_login_empty_pasword(driver):
     login_page.open()
     login_page.login("tomsmith", "")
     msg = login_page.get_message()
-    assert "Your password is invalid!" in msg
+    assert "Your password is invalid!!!" in msg
 
